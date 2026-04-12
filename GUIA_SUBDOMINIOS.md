@@ -1,29 +1,23 @@
-# Guía de Gestión - minera.uno
+# Guía de Gestión - minera.uno (Método Estable)
 
-Este proyecto está configurado para "enmascarar" tus Google Apps Scripts bajo el dominio `minera.uno`.
+Para solucionar los problemas de "pantalla en blanco" de Google, hemos cambiado a un método de **Carpetas Físicas + Iframes**.
 
-## 1. Cómo añadir nuevos subdirectorios
-Para añadir una nueva ruta (ej. `minera.uno/nueva-pagina`), abre el archivo `vercel.json` y añade estas líneas dentro de la lista `"rewrites"`:
+## 1. Cómo añadir nuevos subdirectorios (Ej: /capacitacion)
+Ya no necesitas editar código JSON. Ahora es mucho más visual:
 
-```json
-{
-  "source": "/nueva-pagina",
-  "destination": "https://script.google.com/macros/s/TU_NUEVO_SCRIPT_ID/exec"
-},
-{
-  "source": "/nueva-pagina/:path*",
-  "destination": "https://script.google.com/macros/s/TU_NUEVO_SCRIPT_ID/exec/:path*"
-}
+1. Crea una **nueva carpeta** dentro de `ONE` con el nombre que quieras (ej: `capacitacion`).
+2. Copia el archivo `index.html` que está en la carpeta `cerro`.
+3. Pégalo dentro de tu nueva carpeta (`capacitacion`).
+4. Abre ese nuevo `index.html` y cambia la URL del `src` del iframe por la URL de tu nuevo script de Google.
+
+```html
+<iframe src="TU_NUEVA_URL_AQUI" ...></iframe>
 ```
 
-## 2. Cómo vincular tu dominio de GoDaddy
-Una vez que despliegues este proyecto en Vercel:
-1. Ve a la pestaña **Settings** > **Domains** en tu panel de Vercel.
-2. Escribe `minera.uno` y haz clic en **Add**.
-3. Vercel te dará unos valores (Tipo A o CNAME).
-4. Ve a tu panel de **GoDaddy** > **Administración de DNS**.
-5. Cambia los registros DNS por los que te dio Vercel.
-6. ¡Listo! En unos minutos `minera.uno/cerro` estará funcionando.
+## 2. Ventajas de este método
+- **Estabilidad:** Es casi imposible que Google bloquee este método.
+- **Rendimiento:** Vercel sirve los archivos estáticos instantáneamente.
+- **Limpieza:** Al entrar a `minera.uno/cerro`, el navegador carga la carpeta físicamente y muestra tu portal.
 
-## 3. Notas importantes
-- **X-Frame-Options:** Recuerda que cada script de Google que uses DEBE tener la línea `.setXFrameOptionsMode(HtmlService.XFrameOptionsMode.ALLOWALL)` para que no falle el enmascaramiento.
+## 3. Nota sobre GoDaddy
+No necesitas cambiar nada en GoDaddy. Si ya pusiste los registros DNS anteriores, seguirán funcionando perfectamente para este nuevo método. Solo vuelve a subir estos cambios a GitHub y Vercel se actualizará solo.

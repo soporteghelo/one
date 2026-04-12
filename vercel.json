@@ -1,21 +1,4 @@
 {
   "version": 2,
-  "rewrites": [
-    {
-      "source": "/cerro",
-      "destination": "https://script.google.com/macros/s/AKfycbwdq5Eur1g1LElB_6L5MYTAD6rFN1pVTkx5kt2HR7chaIXUlkPmxuKCskmJuP7Xui57Gw/exec"
-    },
-    {
-      "source": "/cerro/:path*",
-      "destination": "https://script.google.com/macros/s/AKfycbwdq5Eur1g1LElB_6L5MYTAD6rFN1pVTkx5kt2HR7chaIXUlkPmxuKCskmJuP7Xui57Gw/exec/:path*"
-    },
-    {
-      "source": "/cerro/pac",
-      "destination": "https://script.google.com/macros/s/AKfycbwdq5Eur1g1LElB_6L5MYTAD6rFN1pVTkx5kt2HR7chaIXUlkPmxuKCskmJuP7Xui57Gw/exec"
-    },
-    {
-      "source": "/capacitacion",
-      "destination": "https://script.google.com/macros/s/AKfycbwdq5Eur1g1LElB_6L5MYTAD6rFN1pVTkx5kt2HR7chaIXUlkPmxuKCskmJuP7Xui57Gw/exec"
-    }
-  ]
+  "cleanUrls": true
 }
