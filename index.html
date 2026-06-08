@@ -4,8 +4,96 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Minera Uno</title>
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#1a237e">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="Minera Uno">
+    <link rel="apple-touch-icon" href="/icon.svg">
+    <style>
+        #install-banner {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: #1e1e2e;
+            color: white;
+            padding: 12px 16px;
+            align-items: center;
+            gap: 12px;
+            z-index: 9999;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+        }
+        #install-banner.visible { display: flex; }
+        #install-banner img {
+            width: 42px;
+            height: 42px;
+            border-radius: 8px;
+            flex-shrink: 0;
+        }
+        #install-banner-info { flex: 1; min-width: 0; }
+        #install-banner-info strong {
+            display: block;
+            font-size: 14px;
+            font-family: Arial, sans-serif;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        #install-banner-info span {
+            font-size: 12px;
+            color: #aaaaaa;
+            font-family: Arial, sans-serif;
+        }
+        #install-btn {
+            background: none;
+            border: none;
+            color: #7eb3ff;
+            font-size: 14px;
+            font-weight: bold;
+            font-family: Arial, sans-serif;
+            cursor: pointer;
+            padding: 6px 10px;
+            flex-shrink: 0;
+        }
+    </style>
 </head>
 <body>
-    <!-- Raíz en blanco según requerimiento del usuario -->
+    <div id="install-banner">
+        <img src="/icon.svg" alt="Icono Minera Uno">
+        <div id="install-banner-info">
+            <strong>Instalar Minera Uno</strong>
+            <span id="install-url"></span>
+        </div>
+        <button id="install-btn">Instalar</button>
+    </div>
+
+    <script>
+        document.getElementById('install-url').textContent = location.hostname;
+
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/sw.js');
+        }
+
+        let deferredPrompt;
+
+        window.addEventListener('beforeinstallprompt', e => {
+            e.preventDefault();
+            deferredPrompt = e;
+            document.getElementById('install-banner').classList.add('visible');
+        });
+
+        document.getElementById('install-btn').addEventListener('click', async () => {
+            if (!deferredPrompt) return;
+            deferredPrompt.prompt();
+            await deferredPrompt.userChoice;
+            deferredPrompt = null;
+            document.getElementById('install-banner').classList.remove('visible');
+        });
+
+        window.addEventListener('appinstalled', () => {
+            document.getElementById('install-banner').classList.remove('visible');
+        });
+    </script>
 </body>
 </html>

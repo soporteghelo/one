@@ -1,0 +1,18 @@
+{
+  "name": "Minera Uno",
+  "short_name": "Minera Uno",
+  "description": "Portal Minera Uno",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#1a237e",
+  "theme_color": "#1a237e",
+  "icons": [
+    {
+      "src": "/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
